@@ -11,9 +11,10 @@ using System;
 namespace Fire.Migrations
 {
     [DbContext(typeof(FireDbContext))]
-    partial class FireDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180310043512_SeedFeature")]
+    partial class SeedFeature
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

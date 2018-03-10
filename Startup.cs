@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Fire.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,8 +25,11 @@ namespace Fire
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add DbContext and pass the options for configuration (Example options..UseSqlite() for other DB)//services.AddDbContext<WarriosDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddAutoMapper();
+
+            // Add DbContext and pass the options for configuration (Example options..UseSqlite() for other DB)
             services.AddDbContext<FireDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
             services.AddMvc();
         }
 

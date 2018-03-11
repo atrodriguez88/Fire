@@ -15,7 +15,7 @@ namespace Fire.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DELETE * FROM Features");
+            migrationBuilder.Sql("DELETE FROM Features");
         }
     }
 }

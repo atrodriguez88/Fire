@@ -17,15 +17,15 @@ namespace Fire.Migrations
             migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make1-ModelB',(SELECT Id FROM Makes WHERE Name = 'Make1'))");
             migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make1-ModelC',(SELECT Id FROM Makes WHERE Name = 'Make1'))");
 
-            // migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make1-ModelA',2)");
-            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make1-ModelA',(SELECT Id FROM Makes WHERE Name = 'Make2'))");
-            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make1-ModelB',(SELECT Id FROM Makes WHERE Name = 'Make2'))");
-            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make1-ModelC',(SELECT Id FROM Makes WHERE Name = 'Make2'))");
+            // migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make2-ModelA',2)");
+            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make2-ModelA',(SELECT Id FROM Makes WHERE Name = 'Make2'))");
+            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make2-ModelB',(SELECT Id FROM Makes WHERE Name = 'Make2'))");
+            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make2-ModelC',(SELECT Id FROM Makes WHERE Name = 'Make2'))");
 
-            // migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make1-ModelA',3)");
-            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make1-ModelA',(SELECT Id FROM Makes WHERE Name = 'Make3'))");
-            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make1-ModelB',(SELECT Id FROM Makes WHERE Name = 'Make3'))");
-            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make1-ModelC',(SELECT Id FROM Makes WHERE Name = 'Make3'))");
+            // migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make3-ModelA',3)");
+            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make3-ModelA',(SELECT Id FROM Makes WHERE Name = 'Make3'))");
+            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make3-ModelB',(SELECT Id FROM Makes WHERE Name = 'Make3'))");
+            migrationBuilder.Sql("INSERT INTO Models (Name,MakeId) VALUES ('Make3-ModelC',(SELECT Id FROM Makes WHERE Name = 'Make3'))");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -11,9 +11,10 @@ using System;
 namespace Fire.Migrations
 {
     [DbContext(typeof(FireDbContext))]
-    partial class FireDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180313034424_AddModelProperties")]
+    partial class AddModelProperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -124,7 +125,7 @@ namespace Fire.Migrations
             modelBuilder.Entity("Fire.Models.Weapon", b =>
                 {
                     b.HasOne("Fire.Models.Model", "Model")
-                        .WithMany("Weapons")
+                        .WithMany("Models")
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

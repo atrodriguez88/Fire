@@ -19,10 +19,11 @@ namespace Fire.Controllers
             this.context = context;
         }
 
-        [HttpGet("/api/makes")]
+        [HttpGet("/api/weapon/makes")]
         public async Task<IEnumerable<MakeResource>> GetMakes()
         {
             var makes = await context.Makes.Include(m => m.Models).ToListAsync();
+            // return mapper.Map<List<MakeResource>>(makes); It is the same
             return mapper.Map<List<Make>, List<MakeResource>>(makes);
         }
     }

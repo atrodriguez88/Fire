@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Fire.Models;
+using Fire.Core;
+using Fire.Persistent;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
@@ -25,6 +26,8 @@ namespace Fire
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IWeaponRepository, WeaponRepository>();
+            services.AddScoped<IUnitOfWork,UnitOfWork>();
             services.AddAutoMapper();
 
             // Add DbContext and pass the options for configuration (Example options..UseSqlite() for other DB)

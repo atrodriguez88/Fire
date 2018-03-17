@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Fire.Models
+namespace Fire.Persistent.Models
 {
     [Table("WeaponFeatures")]
     public class WeaponFeature

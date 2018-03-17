@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Fire.Models
+namespace Fire.Persistent.Models
 {
     [Table("Weapons")]
     public class Weapon

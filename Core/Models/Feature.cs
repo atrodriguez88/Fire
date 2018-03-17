@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Fire.Models
+namespace Fire.Persistent.Models
 {
     public class Feature
     {

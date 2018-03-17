@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Fire.Controllers.Resources;
-using Fire.Models;
+using Fire.Core;
+using Fire.Persistent.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,12 +14,14 @@ namespace Fire.Controllers
     [Route("/api/weapon")]
     public class WeaponController : Controller
     {
-        private readonly FireDbContext context;
         private readonly IMapper mapper;
-        public WeaponController(FireDbContext context, IMapper mapper)
+        private readonly IWeaponRepository repository;
+        private readonly IUnitOfWork unitOfWork;
+        public WeaponController(IMapper mapper, IWeaponRepository repository, IUnitOfWork unitOfWork)
         {
+            this.unitOfWork = unitOfWork;
+            this.repository = repository;
             this.mapper = mapper;
-            this.context = context;
 
         }
 
@@ -51,16 +54,13 @@ namespace Fire.Controllers
 
             var weapon = mapper.Map<SaveWeaponResource, Weapon>(weaponResource);
             weapon.LastUpdate = DateTime.Now;
-            context.Weapons.Add(weapon);
-            await context.SaveChangesAsync();
+            // context.Weapons.Add(weapon);
+            repository.Add(weapon);
+            // await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             // ***** This code is for return the same type Api (GetWeapon()) *******
-            weapon = await context.Weapons
-                    .Include(w => w.Features)
-                        .ThenInclude(wf => wf.Feature)
-                    .Include(w => w.Model)
-                        .ThenInclude(m => m.Make)
-                    .SingleOrDefaultAsync(w => w.Id == weapon.Id);
+            weapon = await repository.GetWeapon(weapon.Id);
             // *********************************************************************
 
             var result = mapper.Map<Weapon, SaveWeaponResource>(weapon);
@@ -75,23 +75,21 @@ namespace Fire.Controllers
                 BadRequest(ModelState);
             }
 
-            var weapon = await context.Weapons.FindAsync(id);
+            var weapon = await repository.GetWeapon(id, true);
 
             if (weapon == null)
                 return NotFound();
 
             mapper.Map<SaveWeaponResource, Weapon>(weaponResource, weapon);
             weapon.LastUpdate = DateTime.Now;
-            context.Weapons.Add(weapon);
-            await context.SaveChangesAsync();
+            // context.Weapons.Add(weapon);
+            repository.Add(weapon);
+            // await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
+            
 
             // ***** This code is for return the same type Api (GetWeapon()) *******
-            weapon = await context.Weapons
-                    .Include(w => w.Features)
-                        .ThenInclude(wf => wf.Feature)
-                    .Include(w => w.Model)
-                        .ThenInclude(m => m.Make)
-                    .SingleOrDefaultAsync(w => w.Id == weapon.Id);
+            weapon = await repository.GetWeapon(weapon.Id);
             // *********************************************************************
 
             var result = mapper.Map<Weapon, SaveWeaponResource>(weapon);
@@ -101,24 +99,22 @@ namespace Fire.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWeapon(int id)
         {
-            var weapon = await context.Weapons.FindAsync(id);
+            var weapon = await repository.GetWeapon(id, true);
             if (weapon == null)
                 return NotFound();
 
-            context.Remove(weapon);
-            await context.SaveChangesAsync();
+            // context.Remove(weapon);
+            repository.Remove(weapon);
+            // await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
+            
             return Ok(id);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWeapon(int id)
         {
-            var weapon = await context.Weapons
-            .Include(w => w.Features)
-                .ThenInclude(wf => wf.Feature)
-            .Include(w => w.Model)
-                .ThenInclude(m => m.Make)
-            .SingleOrDefaultAsync(w => w.Id == id);
+            var weapon = await repository.GetWeapon(id);
 
             if (weapon == null)
                 return NotFound();

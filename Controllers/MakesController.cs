@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Fire.Controllers.Resources;
-using Fire.Models;
+using Fire.Persistent.Models;
+using Fire.Persistent;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,13 +11,13 @@ namespace Fire.Controllers
 {
     public class MakesController : Controller
     {
-        private readonly FireDbContext context;
         private readonly IMapper mapper;
+        private readonly Persistent.FireDbContext context;
 
-        public MakesController(FireDbContext context, IMapper mapper)
+        public MakesController(Persistent.FireDbContext context, IMapper mapper)
         {
-            this.mapper = mapper;
             this.context = context;
+            this.mapper = mapper;
         }
 
         [HttpGet("/api/weapon/makes")]

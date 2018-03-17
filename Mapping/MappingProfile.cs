@@ -1,7 +1,7 @@
 using System.Linq;
 using AutoMapper;
 using Fire.Controllers.Resources;
-using Fire.Models;
+using Fire.Persistent.Models;
 
 namespace Fire.Mapping
 {

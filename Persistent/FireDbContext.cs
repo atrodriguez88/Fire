@@ -1,6 +1,8 @@
+
+using Fire.Persistent.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Fire.Models
+namespace Fire.Persistent
 {
     public class FireDbContext : DbContext
     {

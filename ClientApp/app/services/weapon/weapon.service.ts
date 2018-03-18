@@ -35,9 +35,9 @@ export class WeaponService {
   }
 
   createWeapon(data: any) {
-    const url = this.urlBase + `/api/weapon/create`;
+    const url = this.urlBase + `/api/weapon`;
     let body = data;
-    return this.http.post('url', body)
+    return this.http.post(url, body)
       .map((res) => {
         return res.json();
       })

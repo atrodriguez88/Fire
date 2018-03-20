@@ -26,9 +26,9 @@ export class WeaponService {
       });
   }
   
-  getWeapon() {
+  getWeapon(id: any) {
     const url = this.urlBase + `/api/weapon`;
-    return this.http.get(url)
+    return this.http.get(url + `/${id}`)
       .map((res) => {
         return res.json();
       })

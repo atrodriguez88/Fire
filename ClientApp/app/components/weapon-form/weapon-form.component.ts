@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { WeaponService } from '../../services/weapon/weapon.service';
 import { NgForm } from '@angular/forms';
-import { ToastyService } from 'ng2-toasty';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
+
 
 @Component({
   selector: 'app-weapon-form',
@@ -26,25 +29,72 @@ export class WeaponFormComponent implements OnInit {
     }
   };
 
-  constructor(private toastyService:ToastyService, private _weapon: WeaponService) { 
+  constructor(private activatedRoute: ActivatedRoute,private router: Router, private _weapon: WeaponService) { 
     this.weapon.features = [];
+    activatedRoute.params.subscribe( param => {
+      this.weapon.makeId = param['id'];
+    });
   }
 
   ngOnInit() {
 
-    this._weapon.getMakes().subscribe(
-      res => {
-        this.makes = res;
-        console.log(this.makes, `OnInit()`);
-      }
-    );
+    let source =[
+      this._weapon.getMakes(),
+      this._weapon.getFeatures(),
+    ]
 
-    this._weapon.getFeatures().subscribe(
-      res => {
-        this.features = res;
-        console.log(this.features, `OnInit()`);
-      }
-    );
+    if (this.weapon.makeId) {      
+      source.push(this._weapon.getWeapon(this.weapon.makeId));
+    }
+    
+
+    Observable.forkJoin(
+      source
+
+      /* Otra manera es crear el Observable[] Ex:source */
+      // [
+      //   this._weapon.getMakes(),
+      //   this._weapon.getFeatures(),
+      //   this._weapon.getWeapon(this.weapon.makeId)
+      // ]
+    ).subscribe(data => {
+      this.makes = data[0];
+      this.features = data[1];
+
+      if (this.weapon.makeId) 
+        this.weapon = data[2];
+        
+    }, err => {
+      if (err.status == 404) {
+            // this.router.navigate(['/not-found']);
+            this.router.navigate(['/home']);
+          }
+    });
+
+    /* La manera de arriba es mas limpia y eficiente */
+
+    // this._weapon.getWeapon(this.weapon.makeId).subscribe( w => {
+    //   this.weapon = w;
+    // }, err => {
+    //   if (err.status == 404) {
+    //     // this.router.navigate(['/not-found']);
+    //     this.router.navigate(['/home']);
+    //   }
+    // });
+
+    // this._weapon.getMakes().subscribe(
+    //   res => {
+    //     this.makes = res;
+    //     console.log(this.makes, `OnInit()`);
+    //   }
+    // );
+
+    // this._weapon.getFeatures().subscribe(
+    //   res => {
+    //     this.features = res;
+    //     console.log(this.features, `OnInit()`);
+    //   }
+    // );
 
   }
 

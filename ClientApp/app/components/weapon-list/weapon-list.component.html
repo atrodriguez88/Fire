@@ -1,0 +1,35 @@
+<h1>Weapons</h1>
+<hr>
+
+<a [routerLink]="['/weapons','new']" routerLinkActive="router-link-active" class="btn btn-primary" role="button">New Weapon</a>
+
+<div class="well top20">
+    <div class="form-group">
+        <label for="make">Make</label>
+        <select class="form-control" name="make" id="make" [(ngModel)]="filter.makeId" (change)="onChangeFilter()">
+            <option value=""></option>
+            <option *ngFor="let make of makes" value="{{make.id}}">{{make.name}}</option>
+        </select>
+    </div>
+<button type="button" class="btn btn-secondary" (click)="resetFilter()">Reset</button>
+</div>
+
+<table class="table table-inverse table-responsive">
+    <thead class="thead-inverse">
+        <tr>
+            <th>Contact Name</th>
+            <th>Make</th>
+            <th>Model</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let weapon of weapons">
+            <td>{{weapon.contact.name}}</td>
+            <td>{{weapon.make.name}}</td>
+            <td>{{weapon.model.name}}</td>
+            <td>
+                <a [routerLink]="['/weapon', weapon.id]" routerLinkActive="router-link-active" class="btn btn-primary" type="button">Details</a>
+            </td>
+        </tr>
+    </tbody>
+</table>

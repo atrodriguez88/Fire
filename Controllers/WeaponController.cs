@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Fire.Controllers.Resources;
 using Fire.Core;
+using Fire.Core.Models;
 using Fire.Persistent.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -75,15 +76,14 @@ namespace Fire.Controllers
                 BadRequest(ModelState);
             }
 
-            var weapon = await repository.GetWeapon(id, true);
+            var weapon = await repository.GetWeapon(id);
 
             if (weapon == null)
                 return NotFound();
 
             mapper.Map<SaveWeaponResource, Weapon>(weaponResource, weapon);
             weapon.LastUpdate = DateTime.Now;
-            // context.Weapons.Add(weapon);
-            repository.Add(weapon);
+            
             // await context.SaveChangesAsync();
             await unitOfWork.CompleteAsync();
             
@@ -99,7 +99,7 @@ namespace Fire.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWeapon(int id)
         {
-            var weapon = await repository.GetWeapon(id, true);
+            var weapon = await repository.GetWeapon(id, includeRelated: false);
             if (weapon == null)
                 return NotFound();
 
@@ -121,6 +121,20 @@ namespace Fire.Controllers
 
             var weaponResource = Mapper.Map<Weapon, WeaponResource>(weapon);
             return Ok(weaponResource);
+        }
+
+        [HttpGet]
+        [Route("/api/weapons")]
+        public async Task<IActionResult> GetWeapons(FilterResource filterResource)
+        {
+            var filter = mapper.Map<FilterResource, Filters>(filterResource);
+            var weapons = await repository.GetWeapons(filter);
+
+            if (weapons == null)
+                return NoContent();
+
+            var weaponsResource = Mapper.Map<IEnumerable<Weapon>, IEnumerable<WeaponResource>>(weapons);
+            return Ok(weaponsResource);
         }
     }
 }

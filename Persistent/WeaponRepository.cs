@@ -1,5 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Fire.Core;
+using Fire.Core.Models;
 using Fire.Persistent.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -32,6 +36,23 @@ namespace Fire.Persistent
 
             return weapon;
             // *********************************************************************
+        }
+
+        public async Task<IEnumerable<Weapon>> GetWeapons(Filters filters)
+        {
+            var query = context.Weapons
+            .Include(w => w.Features)
+                .ThenInclude(wf => wf.Feature)
+            .Include(w => w.Model)
+                .ThenInclude(m => m.Make)
+            .AsQueryable();
+
+            if (filters.MakeId.HasValue)
+            {
+                query = query.Where(w => w.Model.MakeId == filters.MakeId);
+            }
+
+            return await query.ToListAsync();
         }
 
         public void Add(Weapon weapon)

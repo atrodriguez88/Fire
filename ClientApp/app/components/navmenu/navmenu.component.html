@@ -17,8 +17,13 @@
                         <span class='glyphicon glyphicon-home'></span> Home
                     </a>
                 </li>
+                <li [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact: true}">
+                    <a [routerLink]="['/weapons']">
+                        <span class='glyphicon glyphicon-list'></span> Weapons
+                    </a>
+                </li>
                 <li [routerLinkActive]="['link-active']">
-                    <a [routerLink]="['/weapon/new']">
+                    <a [routerLink]="['/weapons/new']">
                         <span class='glyphicon glyphicon-plus'></span> New Weapon
                     </a>
                 </li>

@@ -1,4 +1,5 @@
 
+using Fire.Core.Models;
 using Fire.Persistent.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,7 @@ namespace Fire.Persistent
         public DbSet<Model> Models { get; set; }
         public DbSet<Feature> Features { get; set; }
         public DbSet<Weapon> Weapons { get; set; }
+        public DbSet<Photo> Photos { get; set; }
     }
 
 

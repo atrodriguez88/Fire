@@ -13,6 +13,7 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { WeaponFormComponent } from './components/weapon-form/weapon-form.component';
 import { WeaponListComponent } from './components/weapon-list/weapon-list.component';
+import { WeaponDetailsComponent } from './components/weapon-details/weapon-details.component';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { WeaponListComponent } from './components/weapon-list/weapon-list.compon
         FetchDataComponent,
         HomeComponent,
         WeaponFormComponent,
-        WeaponListComponent
+        WeaponListComponent,
+        WeaponDetailsComponent
     ],
     imports: [
         CommonModule,
@@ -33,7 +35,8 @@ import { WeaponListComponent } from './components/weapon-list/weapon-list.compon
             { path: 'home', component: HomeComponent },
             { path: 'weapons', component: WeaponListComponent },
             { path: 'weapons/new', component: WeaponFormComponent },
-            { path: 'weapons/:id', component: WeaponFormComponent },
+            { path: 'weapons/edit/:id', component: WeaponFormComponent },
+            { path: 'weapons/:id', component: WeaponDetailsComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
             { path: '**', redirectTo: 'home' }

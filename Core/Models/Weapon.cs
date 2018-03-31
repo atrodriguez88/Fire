@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Fire.Core.Models;
 
 namespace Fire.Persistent.Models
 {
@@ -23,9 +24,11 @@ namespace Fire.Persistent.Models
         public Model Model { get; set; }
         public int ModelId { get; set; }
         public ICollection<WeaponFeature> Features { get; set; }
+        public ICollection<Photo> Photos{ get; set; }
         public Weapon()
         {
             Features = new Collection<WeaponFeature>();
+            Photos = new Collection<Photo>();
         }
     }
 }

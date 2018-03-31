@@ -165,7 +165,10 @@ export class WeaponFormComponent implements OnInit {
     else {
       this._weapon.createWeapon(this.weapon)
         .subscribe(
-          x => console.log(x),
+          x => {
+            console.log(x);
+            this.router.navigate(['/weapons', this.weapon.id])
+          },
           e => {
             // Mostrar el error en un toast por ejemplo
             console.error(e);

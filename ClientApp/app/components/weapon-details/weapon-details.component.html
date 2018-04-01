@@ -12,6 +12,7 @@
 <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
+    <h2>Weapon</h2>
     <div class="list-group">
       <!-- <a href="#" class="list-group-item list-group-item-action">{{weapon.make.name}}</a> -->
       <a href="#" class="list-group-item list-group-item-action">{{weapon.model.name}}</a>
@@ -27,9 +28,11 @@
         <a [routerLink]="['/weapons']" type="button" class="btn btn-block btn-default">View All Weapons</a>
       </div>
     </div>
-
+    
+    <h2>Photo</h2>
+    <input type="file" name="photo" id="photo" (change)="uploadPhoto($event)">
 
   </div>
-  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
-  <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">...</div>
+  <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+  </div>
 </div>

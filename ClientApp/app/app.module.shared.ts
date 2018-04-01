@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { WeaponService } from './services/weapon/weapon.service';
+import { PhotoService } from './services/photo.service';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -43,7 +44,8 @@ import { WeaponDetailsComponent } from './components/weapon-details/weapon-detai
         ])
     ],
     providers: [
-        WeaponService
+        WeaponService,
+        PhotoService
     ]
 })
 export class AppModuleShared {

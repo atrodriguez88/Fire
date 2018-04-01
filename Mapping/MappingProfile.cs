@@ -11,6 +11,7 @@ namespace Fire.Mapping
         public MappingProfile()
         {
             // Domain to API Resource
+            CreateMap<Photo,PhotoResource>();
             CreateMap<Make, MakeResource>();
             CreateMap<Model, ModelResource>();
             CreateMap<Feature, FeatureResource>();
@@ -26,6 +27,7 @@ namespace Fire.Mapping
             .ForMember(wr => wr.Features, opt => opt.MapFrom(w => w.Features.Select(wf => new FeatureResource{Id = wf.Feature.Id, Name = wf.Feature.Name})));
 
             // API Resource to Domain
+            CreateMap<PhotoResource,Photo>();
             CreateMap<FilterResource, Filters>();
             CreateMap<SaveWeaponResource, Weapon>() // opt = operation
             .ForMember(w => w.Id, opt => opt.Ignore())

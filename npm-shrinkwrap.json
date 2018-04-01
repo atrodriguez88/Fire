@@ -1235,6 +1235,12 @@
       "integrity": "sha512-2YNL0jXYuN7w07mb1sMZQ6T6zOvGi83v8UbjhBZ8mhvI1VkQ2STU9XOrTFyvWswMyh5rW1evS+e7qltYJvTqPA==",
       "dev": true
     },
+    "@types/q": {
+      "version": "1.5.0",
+      "resolved": "https://registry.npmjs.org/@types/q/-/q-1.5.0.tgz",
+      "integrity": "sha512-sWj7AMiG0fYmta6ug1ublLjtj/tqn+CnCZeo7yswR1ykxel0FOWFGdWviTcGSNAMmtLbycDqbg6w98VPFKJmbw==",
+      "dev": true
+    },
     "@types/webpack-env": {
       "version": "1.13.0",
       "resolved": "https://registry.npmjs.org/@types/webpack-env/-/webpack-env-1.13.0.tgz",
